@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"gitlab.com/hotelian-company/challenge/config"
+	"gitlab.com/hotelian-company/challenge/internal/providers/coingecko"
 	"gitlab.com/hotelian-company/challenge/internal/providers/kucoin"
 )
 
@@ -15,6 +16,8 @@ func GetProvider(ctx context.Context, name string) (IProvider, error) {
 	switch name {
 	case config.KUCOIN:
 		return kucoin.NewKuCoin(), nil
+	case config.COINGECKO:
+		return coingecko.NewCoinGecko(), nil
 	}
 	return nil, errors.New("provider not implemented")
 }

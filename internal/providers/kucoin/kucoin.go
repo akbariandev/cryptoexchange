@@ -68,22 +68,7 @@ func (k *KuCoin) GetRate(ctx context.Context, from, to string) (float64, error) 
 	}
 
 	return f, nil
-	/*adapter := &KuCoinAdapter{
-		Provider: k,
-	}
-
-	parser := parser.Parser{}
-	return parser.HandleResponse(adapter)*/
 }
-
-/*
-func (k *KuCoin) parseResponse() string {
-	return "PARSED"
-}
-
-func (k *KuCoinAdapter) Parse() string {
-	return k.Provider.parseResponse()
-}*/
 
 func makeURL(from, to string) string {
 	return fmt.Sprintf("%s?symbol=%s-%s", baseURL, strings.ToUpper(strings.TrimSpace(from)), strings.ToUpper(strings.TrimSpace(to)))
