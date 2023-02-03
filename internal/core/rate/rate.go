@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"gitlab.com/hotelian-company/challenge/config"
 	"gitlab.com/hotelian-company/challenge/internal/providers"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -22,8 +23,8 @@ func GetCurrenciesRate(ctx context.Context, currencies []string, to string) (rat
 			return rates, errors.New(fmt.Sprintf("currency %s not validated", from))
 		}
 
-		c := make(chan float64)
-		go func(from, to string, ch chan<- float64) {
+		c := make(chan []float64)
+		go func(from, to string, ch chan<- []float64) {
 			defer func() {
 				if r := recover(); r != nil {
 					fmt.Println("Recovered from panic that is: ", r)
@@ -34,13 +35,25 @@ func GetCurrenciesRate(ctx context.Context, currencies []string, to string) (rat
 				panic(err)
 			}
 		}(from, to, c)
-		rates = append(rates, <-c)
+
+		rates = append(rates, mergeRates(<-c))
 	}
 
 	return rates, nil
 }
 
-func getRateOfTwo(ctx context.Context, cfgProviders map[string]config.Provider, from, to string, ch chan<- float64) error {
+func mergeRates(rates []float64) float64 {
+	sort.Float64s(rates)
+	for _, r := range rates {
+		if r != 0 {
+			return r
+		}
+	}
+
+	return 0
+}
+
+func getRateOfTwo(ctx context.Context, cfgProviders map[string]config.Provider, from, to string, ch chan<- []float64) error {
 
 	var wg sync.WaitGroup
 	results := make(chan float64)
@@ -72,9 +85,9 @@ func getRateOfTwo(ctx context.Context, cfgProviders map[string]config.Provider, 
 		close(results)
 	}()
 
-	var output float64
+	var output []float64
 	for result := range results {
-		output += result
+		output = append(output, result)
 	}
 
 	ch <- output
