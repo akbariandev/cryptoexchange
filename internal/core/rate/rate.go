@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"gitlab.com/hotelian-company/challenge/config"
+	"gitlab.com/hotelian-company/challenge/internal/entity"
 	"gitlab.com/hotelian-company/challenge/internal/providers"
 	"gitlab.com/hotelian-company/challenge/pkg/logger"
 	"go.uber.org/zap"
@@ -55,7 +56,7 @@ func mergeRates(rates []float64) float64 {
 	return 0
 }
 
-func getRateOfTwo(ctx context.Context, cfgProviders map[string]config.Provider, from, to string, ch chan<- []float64) error {
+func getRateOfTwo(ctx context.Context, cfgProviders map[string]entity.Provider, from, to string, ch chan<- []float64) error {
 
 	var wg sync.WaitGroup
 	results := make(chan float64)
@@ -100,7 +101,7 @@ func getRateOfTwo(ctx context.Context, cfgProviders map[string]config.Provider, 
 	return nil
 }
 
-func validateCurrency(cfgCurrencies map[string]config.Currency, currency string) bool {
+func validateCurrency(cfgCurrencies map[string]entity.Currency, currency string) bool {
 	for name, config := range cfgCurrencies {
 		if config.Enable {
 			if strings.ToUpper(strings.TrimSpace(name)) == strings.ToUpper(strings.TrimSpace(currency)) {

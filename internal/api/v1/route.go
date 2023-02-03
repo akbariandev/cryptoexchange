@@ -4,12 +4,43 @@ import (
 	"bytes"
 	"encoding/json"
 	"gitlab.com/hotelian-company/challenge/pkg/logger"
+	"go.uber.org/zap"
 	"net/http"
 )
 
+type routeHandler struct {
+	rateRouteHandler     *rateRoutes
+	currencyRouteHandler *currencyRoutes
+}
+
+func (r *routeHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	switch req.Method {
+	case http.MethodGet:
+		switch req.URL.String() {
+		case "/v1/currencies":
+			r.currencyRouteHandler.getCurrencies(w, req)
+		default:
+			http.NotFound(w, req)
+		}
+	case http.MethodPost:
+		switch req.URL.String() {
+		case "/v1/getRate":
+			r.rateRouteHandler.getRate(w, req)
+		default:
+			http.NotFound(w, req)
+		}
+	default:
+		logger.Logger.Info("unhandled route", zap.String("url", req.URL.String()))
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		w.Write(nil)
+	}
+}
+
 func NewRouter(handler *http.ServeMux) {
-	NewRateRouter(handler)
-	//implement other routes
+	handler.Handle("/", &routeHandler{
+		rateRouteHandler:     NewRateRouter(),
+		currencyRouteHandler: NewCurrencyRouter(),
+	})
 }
 
 func response(w http.ResponseWriter, statusCode int, data any) {

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"gitlab.com/hotelian-company/challenge/internal/core/rate"
 	"gitlab.com/hotelian-company/challenge/pkg/logger"
-	"go.uber.org/zap"
 	"net/http"
 )
 
@@ -21,25 +20,8 @@ type getRateResponse struct {
 	Rate float64 `json:"rate"`
 }
 
-func (r *rateRoutes) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	switch req.Method {
-	case http.MethodPost:
-		switch req.URL.String() {
-		case "/v1/getRate":
-			r.getRate(w, req)
-		default:
-			http.NotFound(w, req)
-		}
-
-	default:
-		logger.Logger.Info("unhandled route", zap.String("url", req.URL.String()))
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		w.Write(nil)
-	}
-}
-
-func NewRateRouter(handler *http.ServeMux) {
-	handler.Handle("/", &rateRoutes{})
+func NewRateRouter() *rateRoutes {
+	return &rateRoutes{}
 }
 
 func (r *rateRoutes) getRate(w http.ResponseWriter, req *http.Request) {

@@ -3,28 +3,20 @@ package config
 import (
 	"flag"
 	"fmt"
+	"gitlab.com/hotelian-company/challenge/internal/entity"
 	"gopkg.in/yaml.v3"
 	"os"
 )
 
 type Config struct {
-	Service    *ServiceConfig      `yaml:"core"`
-	Currencies map[string]Currency `yaml:"currencies"`
-	Providers  map[string]Provider `yaml:"providers"`
+	Service    *ServiceConfig             `yaml:"core"`
+	Currencies map[string]entity.Currency `yaml:"currencies"`
+	Providers  map[string]entity.Provider `yaml:"providers"`
 }
 
 type ServiceConfig struct {
 	Host string `yaml:"host"`
 	Port string `yaml:"port"`
-}
-
-type Currency struct {
-	Enable bool `yaml:"enable"`
-}
-
-type Provider struct {
-	Enable  bool   `yaml:"enable"`
-	Timeout string `yaml:"timeout"`
 }
 
 func GetConfig() (*Config, error) {
