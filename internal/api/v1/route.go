@@ -3,6 +3,7 @@ package v1
 import (
 	"bytes"
 	"encoding/json"
+	"gitlab.com/hotelian-company/challenge/pkg/logger"
 	"net/http"
 )
 
@@ -17,12 +18,12 @@ func response(w http.ResponseWriter, statusCode int, data any) {
 
 	reqBodyBytes := new(bytes.Buffer)
 	if err := json.NewEncoder(reqBodyBytes).Encode(data); err != nil {
-		//TODO LOGGER
+		logger.Logger.Error(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		if _, err = w.Write(nil); err != nil {
 			defer func() {
 				if r := recover(); r != nil {
-					//TODO LOGGER
+					logger.Logger.Error(err.Error())
 				}
 
 				panic(err)
@@ -32,10 +33,10 @@ func response(w http.ResponseWriter, statusCode int, data any) {
 	}
 
 	if _, err := w.Write(reqBodyBytes.Bytes()); err != nil {
-		//TODO LOGGER
+		logger.Logger.Error(err.Error())
 		defer func() {
 			if r := recover(); r != nil {
-				//TODO LOGGER
+				logger.Logger.Error(err.Error())
 			}
 
 			panic(err)

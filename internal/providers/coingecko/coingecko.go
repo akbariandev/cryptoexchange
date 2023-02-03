@@ -3,6 +3,7 @@ package coingecko
 import (
 	"context"
 	"encoding/json"
+	"gitlab.com/hotelian-company/challenge/config"
 	"gitlab.com/hotelian-company/challenge/pkg/http"
 	"time"
 )
@@ -50,6 +51,10 @@ func (c *CoinGecko) GetRate(ctx context.Context, from, to string) (float64, erro
 	}
 
 	return result, nil
+}
+
+func (c *CoinGecko) GetName() string {
+	return config.COINGECKO
 }
 
 func compareRates(rates map[string]coin, from, to string) (result float64, err error) {

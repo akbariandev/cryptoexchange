@@ -2,6 +2,7 @@ package main
 
 import (
 	v1 "gitlab.com/hotelian-company/challenge/internal/api/v1"
+	"gitlab.com/hotelian-company/challenge/pkg/logger"
 	"gitlab.com/hotelian-company/challenge/pkg/server"
 	"log"
 	"net/http"
@@ -11,6 +12,8 @@ import (
 )
 
 func main() {
+
+	logger.InitializeLogger()
 
 	handler := http.NewServeMux()
 	v1.NewRouter(handler)

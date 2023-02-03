@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"gitlab.com/hotelian-company/challenge/config"
 	"gitlab.com/hotelian-company/challenge/pkg/http"
 	"strconv"
 	"strings"
@@ -68,6 +69,10 @@ func (k *KuCoin) GetRate(ctx context.Context, from, to string) (float64, error) 
 	}
 
 	return f, nil
+}
+
+func (k *KuCoin) GetName() string {
+	return config.KUCOIN
 }
 
 func makeURL(from, to string) string {

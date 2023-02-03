@@ -10,6 +10,7 @@ import (
 
 type IProvider interface {
 	GetRate(context.Context, string, string) (float64, error)
+	GetName() string
 }
 
 func GetProvider(ctx context.Context, name string) (IProvider, error) {
