@@ -1,0 +1,19 @@
+service:
+  host: 0.0.0.0
+  port: 8070
+currencies:
+  btc:
+    enable: true
+  usdt:
+    enable: true
+providers:
+  KUCOIN:
+    enable: true
+    timeout: 2
+  COINGECKO:
+    enable: false
+    timeout: 2
+  CRYPTINGUP:
+    enable: false
+    timeout: 2
+
