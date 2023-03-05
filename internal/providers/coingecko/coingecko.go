@@ -3,8 +3,8 @@ package coingecko
 import (
 	"context"
 	"encoding/json"
-	"gitlab.com/hotelian-company/challenge/config"
-	"gitlab.com/hotelian-company/challenge/pkg/http"
+	"github.com/akbarian.dev/cryptoexchange/config"
+	"github.com/akbarian.dev/cryptoexchange/pkg/http"
 	"time"
 )
 

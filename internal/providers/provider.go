@@ -3,9 +3,9 @@ package providers
 import (
 	"context"
 	"errors"
-	"gitlab.com/hotelian-company/challenge/config"
-	"gitlab.com/hotelian-company/challenge/internal/providers/coingecko"
-	"gitlab.com/hotelian-company/challenge/internal/providers/kucoin"
+	"github.com/akbarian.dev/cryptoexchange/config"
+	"github.com/akbarian.dev/cryptoexchange/internal/providers/coingecko"
+	"github.com/akbarian.dev/cryptoexchange/internal/providers/kucoin"
 )
 
 type IProvider interface {

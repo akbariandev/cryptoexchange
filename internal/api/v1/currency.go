@@ -1,8 +1,8 @@
 package v1
 
 import (
-	"gitlab.com/hotelian-company/challenge/config"
-	"gitlab.com/hotelian-company/challenge/pkg/logger"
+	"github.com/akbarian.dev/cryptoexchange/config"
+	"github.com/akbarian.dev/cryptoexchange/pkg/logger"
 	"net/http"
 )
 

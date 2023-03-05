@@ -1,9 +1,9 @@
 package main
 
 import (
-	v1 "gitlab.com/hotelian-company/challenge/internal/api/v1"
-	"gitlab.com/hotelian-company/challenge/pkg/logger"
-	"gitlab.com/hotelian-company/challenge/pkg/server"
+	v1 "github.com/akbarian.dev/cryptoexchange/internal/api/v1"
+	"github.com/akbarian.dev/cryptoexchange/pkg/logger"
+	"github.com/akbarian.dev/cryptoexchange/pkg/server"
 	"log"
 	"net/http"
 	"os"

@@ -2,8 +2,8 @@ package v1
 
 import (
 	"encoding/json"
-	"gitlab.com/hotelian-company/challenge/internal/core/rate"
-	"gitlab.com/hotelian-company/challenge/pkg/logger"
+	"github.com/akbarian.dev/cryptoexchange/internal/core/rate"
+	"github.com/akbarian.dev/cryptoexchange/pkg/logger"
 	"net/http"
 )
 

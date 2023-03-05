@@ -3,7 +3,7 @@ package v1
 import (
 	"bytes"
 	"encoding/json"
-	"gitlab.com/hotelian-company/challenge/pkg/logger"
+	"github.com/akbarian.dev/cryptoexchange/pkg/logger"
 	"go.uber.org/zap"
 	"net/http"
 )

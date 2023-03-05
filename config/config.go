@@ -3,8 +3,7 @@ package config
 import (
 	"flag"
 	"fmt"
-	"gitlab.com/hotelian-company/challenge/internal/entity"
-	"gopkg.in/yaml.v3"
+	"github.com/akbarian.dev/cryptoexchange/internal/entity"
 	"os"
 )
 
